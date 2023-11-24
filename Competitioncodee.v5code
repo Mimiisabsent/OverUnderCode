@@ -104,10 +104,87 @@ void scoreAndPickup(){
   wait(0.7,sec);
 }
 void dropOffandReturnToBar(){
+ rightBack.spin(vex::directionType::fwd, 80, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 80, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    wait(0.3,sec);
+stopDrive();
+wait(0,sec);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.38,sec);
+    stopDrive();
+    wait(0,sec);
+    Intake1.spin(forward);
+    wait(0.3, sec);
 
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.4, sec);
+    stopDrive();
+    wait(0,sec);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.3, sec);
+    stopDrive();
+    wait(0,sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+
+    wait(0.5, sec);
+    stopDrive();
 }
 void dropOffandGetautopoint(){
-
+rightBack.spin(vex::directionType::fwd,85, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    
+    wait(0.37, sec);
+  
+    
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.4, sec);
+    Intake1.spin(forward);
+    wait(0.5, sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.4,sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(1,sec);
+    Intake1.spin(reverse);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.7, sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.5,sec);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.98,sec );
 }
 // define your global instances of motors and other devices here
 
@@ -142,6 +219,7 @@ void pre_auton(void) {
 
 
 void autonomous(void) {
+
   // first auto strategy
 dropOffandReturn();
 //dropOffandGetautopoint
@@ -199,14 +277,14 @@ wait(0.2,sec);
     leftBack.stop();
     leftFront.stop();
 
-/*    wait(0.2,sec);
+*//*    wait(0.2,sec);
 
     rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
     rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
     leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
     leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
 
- /* wait(0.7, sec);
+ *//* wait(0.7, sec);
 
 rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
     rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
@@ -218,7 +296,7 @@ rightBack.stop();
     rightFront.stop();
     leftBack.stop();
     leftFront.stop();
-/*
+*//*
 Second auto
 rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
     rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);

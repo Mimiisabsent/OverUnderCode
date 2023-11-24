@@ -1,1 +1,423 @@
-{"title":"Competitioncodee","description":"Empty V5 C++ Project","icon":"USER921x.bmp","version":"23.09.1216","sdk":"20220726_10_00_00","language":"cpp","competition":false,"files":[{"name":"include/robot-config.h","type":"File","specialType":"device_config"},{"name":"include/vex.h","type":"File","specialType":""},{"name":"makefile","type":"File","specialType":""},{"name":"src/main.cpp","type":"File","specialType":""},{"name":"src/robot-config.cpp","type":"File","specialType":"device_config"},{"name":"vex/mkenv.mk","type":"File","specialType":""},{"name":"vex/mkrules.mk","type":"File","specialType":""},{"name":"include","type":"Directory"},{"name":"src","type":"Directory"},{"name":"vex","type":"Directory"}],"device":{"slot":1,"uid":"276-4810","options":{}},"isExpertMode":false,"isExpertModeRC":false,"isVexFileImport":false,"robotconfig":[{"port":[],"name":"Controller1","customName":false,"deviceType":"Controller","setting":{"left":"","leftDir":"false","right":"","rightDir":"false","upDown":"","upDownDir":"false","xB":"","xBDir":"false","drive":"none","id":"primary"},"triportSourcePort":22},{"port":[9],"name":"Intake1","customName":true,"deviceType":"Motor","setting":{"reversed":"false","fwd":"forward","rev":"reverse","gear":"ratio18_1","id":"partner"},"triportSourcePort":22},{"port":[4],"name":"rightFront","customName":true,"deviceType":"Motor","setting":{"reversed":"true","fwd":"forward","rev":"reverse","gear":"ratio18_1"},"triportSourcePort":22},{"port":[10],"name":"rightBack","customName":true,"deviceType":"Motor","setting":{"reversed":"true","fwd":"forward","rev":"reverse","gear":"ratio18_1"},"triportSourcePort":22},{"port":[18],"name":"leftFront","customName":true,"deviceType":"Motor","setting":{"reversed":"false","fwd":"forward","rev":"reverse","gear":"ratio18_1"},"triportSourcePort":22},{"port":[20],"name":"leftBack","customName":true,"deviceType":"Motor","setting":{"reversed":"false","fwd":"forward","rev":"reverse","gear":"ratio18_1"},"triportSourcePort":22},{"port":[6],"name":"flyWheel","customName":true,"deviceType":"Motor","setting":{"reversed":"false","fwd":"forward","rev":"reverse","gear":"ratio18_1"},"triportSourcePort":22},{"port":[16],"name":"flywheel","customName":true,"deviceType":"Motor","setting":{"reversed":"false","fwd":"forward","rev":"reverse","gear":"ratio18_1","id":"partner"},"triportSourcePort":22}],"neverUpdate":null}
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*    Module:       main.cpp                                                  */
+/*    Author:       VEX                                                       */
+/*    Created:      Thu Sep 26 2019                                           */
+/*    Description:  Clawbot Competition Template                              */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Intake1              motor         9               
+// rightFront           motor         4               
+// rightBack            motor         10              
+// leftFront            motor         18              
+// leftBack             motor         20              
+// flyWheel             motor         6               
+// flywheel             motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+
+#include "vex.h"
+
+using namespace vex;
+int motorSpeed = 100;
+
+// A global instance of competition
+competition Competition;
+
+void moveForward(){
+     rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+}
+void moveBackward(){
+  rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+}
+void turnRight(){
+  rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+}
+void turnLeft(){
+  rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+}
+void stopDrive(){
+     rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+}
+void intake(){
+  Intake1.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+}
+void outake(){
+Intake1.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+}
+
+void dropOffandReturn(){
+  moveForward();
+  wait(1, sec);
+  turnRight();
+  wait(0.4,sec);
+  outake();
+  wait(0.3,sec);
+  moveForward();
+  wait(0.5,sec);
+  moveBackward();
+wait(0.3,sec);
+turnRight();
+wait(0.4, sec);
+moveForward();
+wait(1,sec);
+turnRight();
+wait(0.3,sec);
+moveForward();
+stopDrive();
+}
+void scoreAndPickup(){
+    moveForward();
+  wait(1, sec);
+  turnRight();
+  wait(0.4,sec);
+  outake();
+  wait(0.3,sec);
+  moveForward();
+  wait(0.2,sec);
+  moveBackward();
+  wait(0.19, sec);
+  turnLeft();
+  turnLeft();
+  wait(1,sec);
+  moveForward();
+  intake();
+  wait(0.7,sec);
+}
+void dropOffandReturnToBar(){
+
+}
+void dropOffandGetautopoint(){
+
+}
+// define your global instances of motors and other devices here
+
+/*---------------------------------------------------------------------------*/
+/*                          Pre-Autonomous Functions                         */
+/*                                                                           */
+
+/*  You may want to perform some actions before the competition starts.      */
+/*  Do them in the following function.  You must return from this function   */
+/*  or the autonomous and usercontrol tasks will not be started.  This       */
+/*  function is only called once after the V5 has been powered on and        */
+/*  not every time that the robot is disabled.                               */
+/*---------------------------------------------------------------------------*/
+
+void pre_auton(void) {
+  // Initializing Robot Configuration. DO NOT REMOVE!
+  vexcodeInit();
+  
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
+}
+
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              Autonomous Task                              */
+/*                                                                           */
+/*  This task is used to control your robot during the autonomous phase of   */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+
+void autonomous(void) {
+  // first auto strategy
+dropOffandReturn();
+//dropOffandGetautopoint
+//dropOffandReturnToBar
+//scoreAndPickup
+  /*
+   rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+wait(1,sec);
+
+   rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+
+wait(0.5, sec);
+    
+    rightBack.spin(vex::directionType::fwd, 45, vex::velocityUnits::pct);
+    rightFront.spin(vex::directionType::fwd, 45, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 45, vex::velocityUnits::pct);  
+    leftFront.spin(vex::directionType::rev, 45, vex::velocityUnits::pct);
+
+wait(0.5,sec);
+   rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+Intake1.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+wait(0.7,sec);
+Intake1.stop();
+wait(0.6,sec);
+    rightBack.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);
+    rightFront.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);  
+    leftFront.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);
+
+   
+wait(0.39,sec);
+   rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+
+wait(0,sec);
+
+  rightBack.spin(vex::directionType::fwd, 45, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 45, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 45, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 45, vex::velocityUnits::pct);
+wait(0.2,sec);
+   rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+
+/*    wait(0.2,sec);
+
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+
+ /* wait(0.7, sec);
+
+rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+
+wait(0.19, sec);
+rightBack.stop(); 
+    rightFront.stop();
+    leftBack.stop();
+    leftFront.stop();
+/*
+Second auto
+rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+
+wait(0.7,sec);
+
+rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+
+wait(0.4,sec);
+
+Intake1.spin(forward);
+wait(0.3, sec);
+
+rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    
+    wait(0.2, sec);
+    
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.56, sec);
+    
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    Intake1.spin(reverse);
+    wait(0.7, sec)*/
+    
+    /*
+    third auto
+    rightBack.spin(vex::directionType::fwd, 80, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 80, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    wait(0.3,sec);
+
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.38,sec);
+
+    Intake1.spin(forward);
+    wait(0.3, sec);
+
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.4, sec);
+
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.3, sec);
+
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+
+    wait(0.5, sec);
+    */
+/*
+fourth auto 
+rightBack.spin(vex::directionType::fwd,85, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 85, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+    
+    wait(0.37, sec);
+    
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.4, sec);
+    Intake1.spin(forward);
+    wait(0.5, sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    wait(0.4,sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(1,sec);
+    Intake1.spin(reverse);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.7, sec);
+    rightBack.spin(vex::directionType::rev, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.5,sec);
+    rightBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct); 
+    rightFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    wait(0.98, )*/
+
+  // ..........................................................................
+  // Insert autonomous user code here.
+  // dropAndIntakeAuto(); 
+}
+
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              User Control Task                            */
+/*                                                                           */
+/*  This task is used to control your robot during the user control phase of */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+void usercontrol(void) {
+  // User control code here, inside the loop
+  while (1) {
+    // rightBack.setVelocity(100,percent);
+    // rightFront.setVelocity(100,percent);
+    // leftBack.setVelocity(100,percent);
+    // leftFront.setVelocity(100,percent);
+        rightBack.spin(vex::directionType::fwd, Controller1.Axis2.position() - Controller1.Axis1.position(), vex::velocityUnits::pct);
+    rightFront.spin(vex::directionType::fwd, Controller1.Axis2.position() - Controller1.Axis1.position(), vex::velocityUnits::pct);
+    leftBack.spin(vex::directionType::fwd, Controller1.Axis2.position() + Controller1.Axis1.position(), vex::velocityUnits::pct);
+    leftFront.spin(vex::directionType::fwd, Controller1.Axis2.position() + Controller1.Axis1.position(), vex::velocityUnits::pct);
+
+    // this conditional statement is used for the arm motor to have a set degree so it wont hit the ground or the brain and a simple
+    // button for a preset position 
+    if (Controller1.ButtonL1.pressing()){
+      Intake1.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    }
+    else if (Controller1.ButtonR1.pressing()){
+      Intake1.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+    }
+    else {
+      Intake1.stop(vex::brakeType::coast);
+    }
+    //this conditional statement is being used for intake motor to bring up the ball and push it out into the goal 
+    if (Controller1.ButtonB.pressing())
+    {
+      flyWheel.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+      flywheel.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+    }
+    else if (Controller1.ButtonX.pressing()){
+      flyWheel.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+      flywheel.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+  
+    }
+    else
+    {
+      flyWheel.stop(vex::brakeType::brake);
+      flywheel.stop(vex::brakeType::brake);  
+    }
+    }
+    // This is the main execution loop for the user control program.
+    // Each time through the loop your program should update motor + servo
+    // values based on feedback from the joysticks.
+
+    // ........................................................................
+    // Insert user code here. This is where you use the joystick values to
+    // update your motors, etc.
+    // ........................................................................
+
+    wait(20, msec); // Sleep the task for a short amount of time to
+                    // prevent wasted resources.
+  }
+
+
+//
+// Main will set up the competition functions and callbacks.
+//
+int main() {
+  // Set up callbacks for autonomous and driver control periods.
+  Competition.autonomous(autonomous);
+  Competition.drivercontrol(usercontrol);
+
+  // Run the pre-autonomous function.
+  pre_auton();
+
+  // Prevent main from exiting with an infinite loop.
+  while (true) {
+    wait(100, msec);
+  }
+}
